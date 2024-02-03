@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  /* Reset some default styles for better consistency */
+  body, h1, h2, h3, p, ul, li {
+      margin: 0;
+      padding: 0;
+  }
+
+  body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+  }
+
+  .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+
+  .listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(48%, 1fr)); /* Two items per row with some spacing */
+      gap: 30px; /* Adjust the gap as needed */
+  }
+
+  .ad {
+      width: 100%;
+      box-sizing: border-box;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+  }
+
+  .ad:hover {
+      transform: scale(1.05);
+  }
+
+  .ad img {
+      width: 100%;
+      height: auto;
+  }
+
+  .info-wrap {
+      padding: 15px;
+  }
+
+  .price h1 {
+      font-size: 1.5em;
+      color: #007bff;
+  }
+
+  /* Add responsive styles if needed */
+  @media (max-width: 768px) {
+      .listings {
+          grid-template-columns: 1fr; /* One item per row on smaller screens */
+      }
+  }
+</style>
+
+<main>
+  <div class="container">
+      <section class="listings">
+        {% for fan in fans %} 
+              <div class="ad">
+                  <a href="{% url 'app:fan_detail' fan.id %}" style="color: aliceblue; text-decoration: none;"><img src="{{fan.Rasm.url}}"></a>
+                  <a href="{% url 'app:fan_detail' fan.id %}" style="color: aliceblue; text-decoration: none;">
+                      <figcaption class="info-wrap">
+                          <a href="{% url 'app:fan_detail' fan.id %}" style="color: aliceblue; text-decoration: none;">
+                              <div class="price">
+                                  <span class="price" style="text-align: center;"><h1>{{fan.Fan_nomi}}</h1></span>
+                              </div>
+                          </a>
+                      </figcaption>
+                  </a>
+              </div>
+          {% endfor %}
+      </section>
+  </div>
+</main>
+{% endblock %}
